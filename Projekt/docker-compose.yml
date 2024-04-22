@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  # Konfiguracja dla aplikacji Python
+  python:
+    build: ./python
+    command: sh -c "sleep 10s && python3 ./Konwerter.py"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    network_mode: host
+
+  # Konfiguracja dla bazy danych Redis
+  redis:
+    build: ./redis
+    ports:
+      - "6379:6379"
